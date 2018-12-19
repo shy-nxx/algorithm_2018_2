@@ -1,0 +1,48 @@
+package nhn_preTest;
+
+import java.io.*;
+import java.util.ArrayList;
+import java.util.Scanner;
+import java.util.Stack;
+
+public class Q1 {
+	public static void main(String[] args) throws Exception {
+		Scanner scan = new Scanner(System.in);
+		int c = Integer.parseInt(scan.nextLine()); //카드 개수
+		int p = Integer.parseInt(scan.nextLine()); //섞는 횟수
+		int[] ch = new int[p];
+		
+		for (int i = 0; i < p; i++) {
+			ch[i]= Integer.parseInt(scan.nextLine()); //처음 카드섞이에서 제외할 갯수
+		}
+		
+		ArrayList<Integer> cards = new ArrayList<Integer>();
+		ArrayList<Integer> result = new ArrayList<Integer>();
+		
+		for (int i = 0; i < c; i++) {
+			cards.add(i + 1);
+		}
+		
+		int j = 0;
+		
+		for (int i = 0; i < p; i++) {
+			j = 0;
+			int temp = ch[i];
+			
+			while((result.size() - ch[i] * 2) > ch[i]) {
+				
+				cards.add(cards.size() - temp, cards.get(i));
+				
+				cards.remove(0);
+				j++;
+				if (j == ch[i]) break;
+				for (int k = 0; k < cards.size() - temp; k++ ) {
+					result.add(cards.get(k));
+				}
+			}
+		}
+		for (int i = 0; i < 5; i++) {
+			System.out.println(cards.get(i));
+		}
+	}
+}

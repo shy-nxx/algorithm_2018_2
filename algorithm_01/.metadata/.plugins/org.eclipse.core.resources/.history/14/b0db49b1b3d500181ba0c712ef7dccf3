@@ -1,0 +1,85 @@
+package algorithm01;
+import java.util.Scanner;
+
+public class Digit {
+
+    public static void main(String[] args) {
+        // TODO Auto-generated method stub
+        Scanner scan = new Scanner(System.in);
+        String input = scan.nextLine(); //문자열로 입력받음
+
+        int c = 1;
+        int[] digit = new int[input.length()];
+
+        for(int i = 0; i < input.length(); i++ ) {
+            digit[i] = input.charAt(i) - '0'; //문자열을 정수배열에 대입
+        }
+
+        int count_of_one = 0;
+
+        int[] multi = multiDigit(c, digit);
+        while(!hasAllOnes(multi)) {
+            c++;
+            multi = multiDigit(c, digit);
+            count_of_one = count_array_size(multi);
+
+        }
+        System.out.println(count_of_one);
+    }
+
+    public static int count_array_size(int[] multi_array) {
+        int count_of_one = 0;
+        for(int i = 0; i < multi_array.length; i++) {
+
+            int cnt = (int)(Math.log10(multi_array[i])+1);
+
+            count_of_one += cnt;
+        }
+        return count_of_one;
+    }
+
+    public static int[] multiDigit(int c, int[] digit) {
+        //같은 숫자르 더하는 방식으로 구현
+        int cnt = (int)(Math.log10(c)+1);
+        int[] multi = new int[digit.length+cnt -1];
+        int[] c_array = new int[cnt];
+        int k = 0;
+        int[] reverse = new int[cnt];
+        int carry = 0;
+
+        int i = digit.length-1;
+        for (int j = 1; j < c; j++) {
+            digit[i] += digit[i] + carry;
+            digit[i] %= 10;
+            carry = digit[i] / 10;
+            i--;
+
+        }
+
+        //multi[] = {9,21}
+//        for (int j = multi.length -1; j > 0; j--) {
+//            multi[j-1] = multi[j-1] + multi[i] / 10;
+//            multi[i] = multi[i] % 10;
+//        }
+
+        return digit;
+
+    }
+
+    public static boolean hasAllOnes(int[] multi_array) {
+        for(int i = 0; i < multi_array.length; i++) {
+            if (multi_array[i] != 1) return false;
+            int cnt = (int)(Math.log10(multi_array[i])+1);
+            for (int j = 1; j <= cnt; j++) {
+                int div = multi_array[i] % 10;
+
+                if (div != 1) {
+                    return false;
+                }
+                multi_array[i] = multi_array[i] / 10;
+            }
+
+        }
+        return true;
+    }
+}

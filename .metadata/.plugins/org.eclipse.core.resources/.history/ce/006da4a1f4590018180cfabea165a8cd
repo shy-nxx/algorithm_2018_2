@@ -1,0 +1,33 @@
+import java.util.*;
+
+public class Main {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		
+		d(10000);
+	}
+	public static void d(int num) {
+		int[] array= new int[100000];
+		int j = 0;
+		for (int i = 1; i <= num; i++) {
+			int a = i / 10;
+			int b = i % 10;
+			int c = i + a + b;
+			array[j] = c;
+			j++;
+			
+		}
+		
+		for (int i = 1; i <= num; i++) {
+			for (j = 0; j <= array.length; j++) {
+				if (i == array[j]) {
+					break;
+				}
+				
+			}
+			System.out.println(i);
+		}
+			
+	}
+}

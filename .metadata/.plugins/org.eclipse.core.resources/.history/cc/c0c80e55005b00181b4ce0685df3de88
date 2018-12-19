@@ -1,0 +1,20 @@
+import java.io.*;
+class Main {
+	public static void main(String[] args) throws Exception {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		String input;
+		// System.out.println("Hello Goorm! Your input is " + input);
+		
+		while((input = br.readLine()) != null) {
+			String[] st = input.split(" ");
+			for (int i = 1; i < st.length; i++) {
+				if (st[i].charAt(st[i].length()-1)==':') {
+					System.out.println(st[i + 1]);
+				}
+			}
+			// System.out.println(index);
+			// long v = Long.parseLong(hex, 16);   
+			// String.valueOf(v);
+		}
+	}
+}

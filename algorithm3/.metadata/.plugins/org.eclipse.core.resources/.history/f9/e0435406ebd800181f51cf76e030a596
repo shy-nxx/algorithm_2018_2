@@ -1,0 +1,51 @@
+package algorithm03;
+
+import java.io.IOException;
+import java.util.Scanner;
+
+public class Q3 {
+
+	static final int MOD = 987654321;
+	static long[] dp = new long[1000];
+
+	public static void main(String[] args) throws IOException {
+
+		Scanner br = new Scanner(System.in);
+
+		int N = br.nextInt();
+		
+		System.out.println(solve(N));
+		
+		for(int i = 0; i < dp.length; i++) {
+			System.out.println(dp[i]);
+		}
+	}
+	static long solve(int N) {
+
+        if (N == 0) {
+
+            return 1;
+        }
+
+        if (N == 2) {
+
+            return dp[2] = 1;
+        }
+
+        if (dp[N] > 0) {
+
+            return dp[N];
+        }
+
+        long ret = 0;
+
+        for (int i = 1; i < N; i += 2) {
+
+            ret += solve(i - 1) * solve(N - (i + 1));
+            ret %= MOD;
+        }
+
+        return dp[N] = ret;
+    }
+
+}

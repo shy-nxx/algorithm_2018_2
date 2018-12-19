@@ -1,0 +1,139 @@
+
+import java.util.ArrayList;
+import java.util.Random;
+
+public class YaroslavskiySort {
+	Random gener;
+	public int temporary,genertype,NInts;
+	ArrayList<Integer> mylist;
+
+	public YaroslavskiySort(int type,int ilosc){
+		gener = new Random();
+		mylist= new  ArrayList<>();
+		this.genertype=type;
+		this.NInts=ilosc;
+
+	}
+
+	void generate(){
+		if(genertype==0){
+			for(int i=0;i<NInts;i++){
+				mylist.add(gener.nextInt(10000));
+			}
+		}else {
+			for(int i=0;i<NInts;i++){
+				mylist.add(NInts-i);
+			}
+		}
+	}
+
+	void sortingI(int left,int right) {
+		for (int i=left+1;i<=right;i++)
+		{
+			int value = mylist.get(i);
+			int j =i-1;
+			while (j >= left && mylist.get(j)>value)
+			{
+				mylist.set(j+1,mylist.get(j));
+				j--;
+			}
+			mylist.set(j+1,value);
+		}
+
+	}
+	private void sorting( int left, int right) {
+
+		if((right-left)>=129) {
+			int[] index =  partition(left, right);
+			if (left < index[0]) {
+				sorting(left, index[0]);
+			}
+			if(index[0]<index[1]){
+				sorting(index[0], index[1]);
+			}
+			if (index[1] < right) {
+				sorting(index[1], right);
+			}
+		}
+
+		if((right-left)<129 && (right-left)!=0){
+			sortingI(left,right);                               //INSERTION SORT!
+		}
+	}
+
+	private int[] partition( int left, int right) {
+
+		int pivot1 = mylist.get(left);
+		int pivot2 = mylist.get(right);
+		if(pivot1>pivot2){
+			mylist.set(left,pivot2);
+			mylist.set(right,pivot1);
+			temporary=pivot1;
+			pivot1=pivot2;
+			pivot2=temporary;
+		}
+		int L=left+1;
+		while(mylist.get(L)<pivot1 && L<right){
+			L++;
+		}
+		int K=L;
+		while( K<=right&& mylist.get(K)>=pivot1 && mylist.get(K)<=pivot2 ){
+			K++;
+		}
+		int G=right-1;
+		while(mylist.get(G)>pivot2 && G>left){
+			G--;
+		}
+
+
+		while (K <= G) {
+			if(mylist.get(K)<pivot1){
+				mylist.add(left+1,mylist.remove(K));
+				L++;
+				K++;
+			}
+			if(mylist.get(K)>=pivot1 && mylist.get(K)<=pivot2){
+				mylist.add(L,mylist.remove(K));
+				K++;
+			}
+			if(mylist.get(K)>pivot2){
+				mylist.add(right,mylist.remove(K));
+				G--;
+			}
+
+		}
+
+		mylist.set(left,mylist.get(L-1));
+		mylist.set(L-1,pivot1);
+
+		mylist.set(right,mylist.get(G+1));
+		mylist.set(G+1,pivot2);
+		int[] table=new int[2];
+		table[0]=L;
+		table[1]=G;
+
+		return table;
+	}
+
+	void printing(){
+		for(int k=0;k<NInts;k++){
+			System.out.print(" "+mylist.get(k));
+		}
+	}
+
+	public static void main(String[] args){
+
+		YaroslavskiySort instance = new YaroslavskiySort(1,10000);
+		instance.generate();
+		long start_time = System.currentTimeMillis();
+
+		instance.sorting(0, instance.mylist.size() - 1);
+
+		long end_time = System.currentTimeMillis();
+		System.out.println("time for computation = " + (end_time - start_time) + "ms");
+		instance.printing();
+
+	}
+
+}
+

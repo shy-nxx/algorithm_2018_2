@@ -1,0 +1,43 @@
+package algorithm02;
+
+import java.util.Scanner;
+
+public class Q03 {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		//reverse input -> 원래의 string에 붙이면 항상 palindrome 가장 짧지는 않음) caba + abac => cabaabac
+		//string의 가장 마지막글자를 제외한 그 앞의 글자들을 뒤집어서 붙인다. caba + bac => cababac
+		//reverse된 string을 하나씩 제외한 후에 비교하여 palindrome인지 확인 
+		Scanner scan = new Scanner(System.in);
+		String input = scan.nextLine();
+		String[] input_array = new String[input.length()];
+		
+		for (int i = 0; i < input_array.length; i++) {
+			input_array[i] = String.valueOf(input.charAt(i));
+		}
+		
+		String[] reverse_input = reverseInputString(input_array);
+		
+//		for(int i = 0; i < reverse_input.length; i++) {
+//			System.out.println(reverse_input[i]);
+//		}
+		
+//		String[] join_inputs = new String[input_array.length * 2];
+		
+	}
+	public static String[] reverseInputString(String[] s) {
+		String[] reverse_input_string = new String[s.length];
+		int j = 0;
+		
+		for (int i = s.length -1; i >= 0; i--) {
+			reverse_input_string[j] = s[i];
+			j++;
+		}
+		for (int i = 0; i < reverse_input_string.length; i++)
+			System.out.print(reverse_input_string + " ");
+		
+		return reverse_input_string;
+		
+	}
+}

@@ -1,0 +1,28 @@
+import java.util.*;
+
+public class Main {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		Scanner scan = new Scanner(System.in);
+		
+		int init = scan.nextInt();
+		int count = 1;
+		int check = init;
+		
+		while(true) {
+			int a = init / 10;
+			int b = init % 10;
+			int c = a + b;
+			init = (b * 10) + (c % 10);
+			
+			if (init == check) {
+				break;
+			}
+			count++;
+		}
+		
+		System.out.println(count);
+	}
+
+}

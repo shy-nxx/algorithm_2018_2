@@ -1,0 +1,67 @@
+import java.util.*;
+
+public class Main {
+	public static void main(String[] args) {
+		
+		Scanner scan = new Scanner(System.in);
+		
+		String[] n = scan.next().split(" "); //10, 3
+		String[] seq = scan.next().split(" ");//1,2,3
+		
+		int N = Integer.parseInt(n[0]); //10 -> 10크기의 덱이 만들어짐 
+		
+		CircleQueue q = new CircleQueue(N, seq);
+		
+		System.out.println();
+		System.out.println(q.getCount());
+		
+	}
+}
+class CircleQueue {
+	private LinkedList<Integer> list = new LinkedList<Integer> ();
+	private int count = 0;
+	private String[] seq; //1,2,3
+	
+	public CircleQueue(int n, String[] seq) {
+		for (int i = 1; i <=n; i++) {
+			list.add(i); //10크기의 덱이 생성됨 
+		}
+		this.seq = seq;
+		start();
+	}
+	public void start() {
+		int length = seq.length;
+		
+		for (int i = 0; i < length; i++) {
+			int n = Integer.parseInt(seq[i]); //1,2,3 차례로 대입됨 
+			operate(n);
+		}
+	}
+	
+	public void operate(int num) {
+		while(true) {
+			int pos = list.indexOf(num); //1,2,3 번째 자리의 list인덱스 
+			int size= list.size();
+			int left = pos; //왼쪽에서 해당 인덱스의 위치 
+			int right = size - pos - 1; //오른쪽에서의 해당 인덱스의 위치 
+			
+			if (left == 0) { //맨 첫번째 자리 2,3 연산을 통해 맨 앞으로 맞춰졌다.
+				list.remove(0);
+				break;
+				
+			}
+			else if (left <= right) {
+				//2번연산. 왼쪽으로 한 칸 이동 
+				list.addLast(list.removeFirst());
+				++count;
+			}
+			else {
+				list.addFirst(list.removeLast());
+				++count;
+			}
+		}
+	}
+	public int getCount() {
+		return count;
+	}
+}

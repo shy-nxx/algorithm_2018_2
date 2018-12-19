@@ -1,0 +1,42 @@
+import java.util.*;
+
+public class Main2 {
+	public static void main(String[] args) {
+		Scanner scan = new Scanner(System.in);
+		
+		int n = scan.nextInt();
+        double[] scores;
+        double sum;
+        double average;
+        double[] arr;
+        
+        for (int i = 0; i < n; i++) {
+            int stud = scan.nextInt();
+            int index = 0;
+            sum = 0;
+            average = 0;
+            scores = new double[stud];
+            arr = new double[stud];
+			
+            if (stud >= 1 || stud <= 1000) {
+				for (int j = 0; j < stud; j++) {
+					if (scan.hasNextInt()) {
+						arr[j] = scan.nextInt();
+                        sum += arr[j];
+                        scores[j] = arr[j];
+					}
+				}
+				average = sum / stud;
+				for (int k = 0; k < stud; k++) {
+					if (scores[k] > average) 
+						index++;
+				}
+			}
+			double rate = (double)index/stud * 100;
+			System.out.printf("%.3f", rate);
+			System.out.println("%");
+		}
+		scan.close();
+	}
+}
+

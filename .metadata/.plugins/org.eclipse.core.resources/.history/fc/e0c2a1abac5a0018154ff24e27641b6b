@@ -1,0 +1,72 @@
+import java.util.*;
+
+public class Main {
+	static int[][] graph = new int[100][100];
+	static boolean[] visited = new boolean[100];
+	static int N;
+	static int M;
+	static int startPoint = 0;
+//	static int len[] = {0,0,-1,-1};
+	
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		
+		Scanner scan = new Scanner(System.in);
+		
+		N = scan.nextInt(); //4
+		M = scan.nextInt(); //5
+		startPoint = scan.nextInt();
+		int a, b;
+		
+		for (int i = 1; i <= M; i++) {
+			a = scan.nextInt();
+			b = scan.nextInt();
+			
+			graph[a][b] = graph[b][a] = 1;
+			
+		}
+		
+		dfs(startPoint);
+		
+		for (int i = 1; i <= N; i++) {
+			visited[i] = false;
+		}
+		
+		System.out.println();
+		
+		bfs(startPoint);
+	}
+	public static void dfs(int k) {
+		visited[k] = true;
+		System.out.print(k + " ");
+		
+		for (int i = 1; i <= N; i++ ) {
+			if (graph[k][i] == 1 && visited[i] == false) {
+				dfs(i);
+			}
+		}
+		
+	}
+	public static void bfs(int k) {
+		Queue<Integer> q = new LinkedList<Integer> ();
+		
+		q.offer(k);
+		
+		visited[k] = true;
+		
+		System.out.print(k + " ");
+		
+		int temp;
+		
+		while(!q.isEmpty()) {
+			temp = q.poll();
+			for (int j = 0; j < N + 1; j++) {
+				if (graph[temp][j] == 1 && visited[j]==false) {
+					q.offer(j);
+					visited[j]=true;
+					System.out.print(j + " ");
+				}
+			}
+		}
+	}
+}

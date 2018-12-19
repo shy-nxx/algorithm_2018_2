@@ -1,0 +1,27 @@
+import java.util.*;
+
+public class Main {
+	public static void main(String[] args) {
+		
+		Scanner scan = new Scanner(System.in);
+		
+		int n = scan.nextInt(); //6 (열)
+		int m = scan.nextInt();//4 (행) [4][6]
+		
+		int[][] boxes = new int[m][n];
+		
+		for (int i = 0; i < m; i++) {
+			for (int j = 0; j < n; j++) {
+				boxes[i][j] = scan.nextInt();
+//				if (boxes[i][j] == 1) {
+//					System.out.println(i + " " + j);
+//				}
+			}
+		}
+		bfs(boxes, m, n);
+		
+	}
+	public static void bfs(int[][] boxes, int m, int n) {
+		
+	}
+}
