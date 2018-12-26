@@ -94,9 +94,10 @@ public class Bucket {
         for (int i = 0; i < length; i++) {
 
             System.out.println(arr[i]);
-            for (int j = 0; j < inputs.length; j++) {
+            for (int j = arr[i]; j <  ; i++) {
 
             }
+            System.out.println()
         }
 
         System.out.println();
